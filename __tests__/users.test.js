@@ -8,7 +8,7 @@ const mockUser = {
   password: '12345'
 };
 
-describe('user routes', async () => {
+describe('user routes', () => {
   beforeEach(() => {
     return setup(pool);
   });

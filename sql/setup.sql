@@ -9,3 +9,8 @@ CREATE TABLE users (
     email VARCHAR,
     password_hash VARCHAR NOT NULL
 );
+
+CREATE TABLE tasks (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    description VARCHAR
+)
