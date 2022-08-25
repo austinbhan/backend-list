@@ -9,6 +9,7 @@ const mockUser = {
 };
 
 const registerAndLogin = async (userProps = {}) => {
+  // eslint-disable-next-line no-unused-vars
   const password = userProps.password ?? mockUser.password;
   const agent = request.agent(app);
   const resp = await agent
