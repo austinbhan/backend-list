@@ -23,13 +23,28 @@ describe('user routes', () => {
     return setup(pool);
   });
 
+
+
   it('creates a new user', async () => {
-    const res = await request(app).post('/api/v1/users').send(mockUser);
+    const [agent] = await registerAndLogin();
+    const res = await agent.post('/api/v1/users').send(mockUser);
     const { email } = mockUser;
     expect(res.body).toEqual({
       id: expect.any(String),
       email,
     });
+  });
+
+
+  it('should sign in a user', async () => {
+    const [agent] = await registerAndLogin();
+    const { email, password } = mockUser;
+    const res = await agent.post('/api/v1/users/sessions').send({
+      email,
+      password
+    });
+    expect(res.body).toEqual({ message: 'Signed in Successfully' });
+    console.log(res.body);
   });
 
   it('should return the currently logged in user', async () => {
@@ -43,16 +58,7 @@ describe('user routes', () => {
     });
   });
 
-  it('should sign in a user', async () => {
-    const agent = request.agent(app);
-    await agent.post('/api/v1/users').send(mockUser);
-    const { email, password } = mockUser;
-    const res = await agent.post('/api/v1/users/sessions').send({
-      email,
-      password
-    });
-    expect(res.body).toEqual({ message: 'Signed in Successfully' });
-  });
+
 
   afterAll(() => {
     pool.end();
