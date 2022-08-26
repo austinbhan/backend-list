@@ -24,8 +24,6 @@ describe('user routes', () => {
     return setup(pool);
   });
 
-
-
   it('creates a new user', async () => {
     const [agent] = await registerAndLogin();
     const res = await agent.post('/api/v1/users').send(mockUser);
@@ -35,7 +33,6 @@ describe('user routes', () => {
       email,
     });
   });
-
 
   it('should sign in a user', async () => {
     const [agent] = await registerAndLogin();
@@ -59,7 +56,6 @@ describe('user routes', () => {
     });
   });
 
-  // Delete Test
   it('delete /api/v1/users/sessions should delete a session', async () => {
     const [agent] = await registerAndLogin();
     const deleteResp = await agent.delete('/api/v1/users/sessions');
@@ -68,10 +64,7 @@ describe('user routes', () => {
     expect(resp.status).toBe(401);
   });
 
-
-
   afterAll(() => {
     pool.end();
   });
-
 });
